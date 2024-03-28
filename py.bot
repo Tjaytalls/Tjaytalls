@@ -1,0 +1,16 @@
+import requests
+
+API_TOKEN = "7140426261:AAGWM5w-pqteflRu1_Rlpon90ONeyfB2Q6U"
+CHANNEL_URL = "https://api.telegram.org/bot{}/getUpdates".format(API_TOKEN)
+
+def get_channel_messages():
+    response = requests.get(CHANNEL_URL)
+    data = response.json()
+    messages = []
+    for message in data['result'][-10:]: # get the last 10 messages
+        messages.append(message['message'])
+    return messages
+
+messages = get_channel_messages()
+for message in messages:
+    print(message)
